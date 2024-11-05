@@ -7,75 +7,61 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Tic_Tac_Toe.Form1;
 
-namespace Tic_Tac_Toe
+namespace Tic_Tac_Toe.Model
 {
     public class TTTBoard
     {
-        public char[,] cells;
+        public char[,] Cells { get; set; }
         public bool Turn { get; set; } = true;
-        public int countOfAddCells = 0;
+        public int CountOfAddCells { get; set; } = 0;
         public EPlayerType Player1 { get; set; }
         public EPlayerType Player2 { get; set; }
 
 
         public TTTBoard()
         {
-            cells = new char[3, 3];
+            InitializeBoard();
         }
 
         public void InitializeBoard()
         {
-            for (int i = 0; i < cells.GetLength(0); i++)
+            Cells = new char[3, 3];
+            for (int i = 0; i < Cells.GetLength(0); i++)
             {
-                for(int j = 0; j < cells.GetLength(1); j++)
+                for(int j = 0; j < Cells.GetLength(1); j++)
                 {
-                    cells[i, j] = ' ';
+                    Cells[i, j] = ' ';
                 }
             }
 
-            ResetBoard();
-        }
-
-        public void LogicH(EPlayerType playerType, int row, int col)
-        {
-            switch (playerType)
-            {
-                case EPlayerType.Player:
-                    cells[row, col] = '1';
-                    //cells =
-                    
-                    break;
-                case EPlayerType.Bot:
-                    cells[row, col] = '0';
-                    break;
-            }
+            //ResetBoard();
         }
 
         public bool CheckBoard()
         {
             //mtacel aveli lav tarberak
 
-            if (cells[0, 0] == '1' && cells[0, 1] == '1' && cells[0, 2] == '1'
-                || cells[1, 0] == '1' && cells[1, 1] == '1' && cells[1, 2] == '1'
-                || cells[2, 0] == '1' && cells[2, 1] == '1' && cells[2, 2] == '1'
-                || cells[0, 0] == '1' && cells[1, 0] == '1' && cells[2, 0] == '1'
-                || cells[0, 1] == '1' && cells[1, 1] == '1' && cells[2, 1] == '1'
-                || cells[0, 2] == '1' && cells[2, 2] == '1' && cells[2, 2] == '1'
-                || cells[0, 0] == '1' && cells[1, 1] == '1' && cells[2, 2] == '1'
-                || cells[0, 2] == '1' && cells[1, 1] == '1' && cells[2, 0] == '1') 
+            if (Cells[0, 0] == '1' && Cells[0, 1] == '1' && Cells[0, 2] == '1'
+                || Cells[1, 0] == '1' && Cells[1, 1] == '1' && Cells[1, 2] == '1'
+                || Cells[2, 0] == '1' && Cells[2, 1] == '1' && Cells[2, 2] == '1'
+                || Cells[0, 0] == '1' && Cells[1, 0] == '1' && Cells[2, 0] == '1'
+                || Cells[0, 1] == '1' && Cells[1, 1] == '1' && Cells[2, 1] == '1'
+                || Cells[0, 2] == '1' && Cells[2, 2] == '1' && Cells[2, 2] == '1'
+                || Cells[0, 0] == '1' && Cells[1, 1] == '1' && Cells[2, 2] == '1'
+                || Cells[0, 2] == '1' && Cells[1, 1] == '1' && Cells[2, 0] == '1') 
             {
                 MessageBox.Show("Player1 Win  - 'X'");
                 return true;
             }
 
-            else if (cells[0, 0] == '0' && cells[0, 1] == '0' && cells[0, 2] == '0'
-                || cells[1, 0] == '0' && cells[1, 1] == '0' && cells[1, 2] == '0'
-                || cells[2, 0] == '0' && cells[2, 1] == '0' && cells[2, 2] == '0'
-                || cells[0, 0] == '0' && cells[1, 0] == '0' && cells[2, 0] == '0'
-                || cells[0, 1] == '0' && cells[1, 1] == '0' && cells[2, 1] == '0'
-                || cells[0, 2] == '0' && cells[2, 2] == '0' && cells[2, 2] == '0'
-                || cells[0, 0] == '0' && cells[1, 1] == '0' && cells[2, 2] == '0'
-                || cells[0, 2] == '0' && cells[1, 1] == '0' && cells[2, 0] == '0')
+            else if (Cells[0, 0] == '0' && Cells[0, 1] == '0' && Cells[0, 2] == '0'
+                || Cells[1, 0] == '0' && Cells[1, 1] == '0' && Cells[1, 2] == '0'
+                || Cells[2, 0] == '0' && Cells[2, 1] == '0' && Cells[2, 2] == '0'
+                || Cells[0, 0] == '0' && Cells[1, 0] == '0' && Cells[2, 0] == '0'
+                || Cells[0, 1] == '0' && Cells[1, 1] == '0' && Cells[2, 1] == '0'
+                || Cells[0, 2] == '0' && Cells[2, 2] == '0' && Cells[2, 2] == '0'
+                || Cells[0, 0] == '0' && Cells[1, 1] == '0' && Cells[2, 2] == '0'
+                || Cells[0, 2] == '0' && Cells[1, 1] == '0' && Cells[2, 0] == '0')
             {
                 MessageBox.Show("Player2 Win  - 'O'");
                 return true;
@@ -86,11 +72,11 @@ namespace Tic_Tac_Toe
 
         public void ResetBoard()
         {
-            for (int i = 0; i < cells.GetLength(0); i++)
+            for (int i = 0; i < Cells.GetLength(0); i++)
             {
-                for (int j = 0; j < cells.GetLength(1); j++)
+                for (int j = 0; j < Cells.GetLength(1); j++)
                 {
-                    cells[i, j] = ' ';
+                    Cells[i, j] = ' ';
                 }
             }
         }

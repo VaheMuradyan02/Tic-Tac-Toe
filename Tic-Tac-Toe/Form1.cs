@@ -9,159 +9,45 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using System.IO;
+using Tic_Tac_Toe.Model;
+using Tic_Tac_Toe.View;
+using Tic_Tac_Toe.Presenter;
 
 namespace Tic_Tac_Toe
 {
-    public partial class Form1 : Form
-    {        
-        public enum Player
-        {
-            X, O
-        }
+    public partial class Form1 : Form, ITTTBoardView
+    {
+        private TTTBoard _board = new TTTBoard();
 
-        Player currentPlayer;
-        Random random = new Random();
-        List<Button> buttonsPvP;
-        List<Button> buttonsPvPCEasy;
-        List<Button> buttonsPCvPC;
+        public event EventHandler CheckCellEvent;
+        public event EventHandler ChooseFirstPlayerAsHumanEvent;
+        public event EventHandler ChooseFirstPlayerAsBotEvent;
+        public event EventHandler ChooseSecondPlayerAsHumanEvent;
+        public event EventHandler ChooseSecondPlayerAsBotEvent;
 
-        TTTBoard board = new TTTBoard();
-
-        bool isVisited = true;
-
-        Button[,] boardButtons = new Button[3,3];
-
+        
         public Form1()
         {
             InitializeComponent();
-            board.InitializeBoard();
+
+            var buttons = new Button[3, 3];
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++) 
+                {
+                    string buttonName = $"button{i}{j}";
+                    var button = Controls.Find(buttonName, true).FirstOrDefault() as Button;
+                    buttons[i,j] = button;
+                }
+            }
+
+            _board.InitializeBoard();
             CreateBoard();
-            
-
-
-            //newB.Click += new System.EventHandler(DoMessage());
-            //this.Controls.Add(newB );
-            //RestartGamePvP();
-            //RestartGamePCvPEasy();
-            //RestartGamePCvPC();
+            _ = new TTTBoardPresenter(this, buttons);
         }
 
         private void CreateBoard()
         {
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    boardButtons[i, j] = new Button();
-                    boardButtons[i, j].BackColor = Color.White;
-                    boardButtons[i, j].Name = i.ToString() + j.ToString();
-                    boardButtons[i, j].Text = "-";
-                    boardButtons[i, j].Parent = this;
-                    boardButtons[i, j].SetBounds(i * 100 + 150, j * 100 + 80, 100, 100);
-
-                    int row = i;
-                    int col = j;
-
-                    boardButtons[row, col].Click += (object sender, EventArgs e) =>
-                    {
-                        var button = (Button)sender;
-
-                        if (board.Turn)
-                        {
-                            button.BackColor = Color.Green;
-                            button.Text = "X";
-                            button.Enabled = false;
-                            board.Turn = false;
-                            board.cells[row, col] = '1';
-                            board.countOfAddCells++;
-
-                            if (board.countOfAddCells >= 5 && board.CheckBoard())
-                            {
-                                board.ResetBoard();
-                            }
-
-
-                            if (board.Player2 == EPlayerType.Bot)
-                            {                                
-                                while (true)
-                                {
-                                    row = random.Next(0, 3);
-                                    col = random.Next(0, 3);
-                                    board.LogicH(board.Player2, row, col);
-
-                                    var cell = boardButtons[row, col];
-                                    if (cell.Text != "X" && cell.Text != "O")
-                                    {
-                                        boardButtons[row, col].Text = "O";
-                                        board.cells[row, col] = '0';
-                                        boardButtons[row, col].BackColor = Color.Yellow;
-                                        boardButtons[row, col].Enabled = false;
-                                        board.Turn = true;
-                                        board.countOfAddCells++;
-
-                                        if (board.countOfAddCells >= 5 && board.CheckBoard())
-                                        {
-                                            board.ResetBoard();
-                                        }
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            button.BackColor = Color.Yellow;
-                            button.Text = "O";
-                            board.cells[row, col] = '0';
-                            button.Enabled = false;
-                            board.Turn = true;
-                            board.LogicH(board.Player2, row, col);
-                            board.countOfAddCells++;
-
-                            if (board.countOfAddCells >= 5 && board.CheckBoard())
-                            {
-                                board.ResetBoard();
-                            }
-
-                            if (board.Player1 == EPlayerType.Bot)
-                            {
-                                while (true)
-                                {
-                                    row = random.Next(0, 3);
-                                    col = random.Next(0, 3);
-                                    board.LogicH(board.Player1, row, col);
-
-
-                                    var cell = boardButtons[row, col];
-                                    if (cell.Text != "X" && cell.Text != "O")
-                                    {
-                                        boardButtons[row, col].Text = "X";
-                                        board.cells[row, col] = '1';
-                                        boardButtons[row, col].BackColor = Color.Green;
-                                        boardButtons[row, col].Enabled = false;
-                                        board.Turn = false;
-                                        board.countOfAddCells++;
-
-                                        if (board.countOfAddCells >= 5 && board.CheckBoard())
-                                        {
-                                            board.ResetBoard();
-                                        }
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-
-
-                        //Human.PlayerClick(sender);
-
-
-                        //you can use your variables inside event
-                        //MessageBox.Show("dt fjfgf");
-                    };
-                }
-            }
-
             PictureBox pb1 = new PictureBox();
             pb1.Image = Image.FromFile("C:\\Users\\user\\OneDrive\\Pictures\\Desktop Backgrounds\\Image 24.jpg");
             pb1.Location = new Point(120, 50);
@@ -187,44 +73,50 @@ namespace Tic_Tac_Toe
 
         private void Player1_Is_Human_Click(object sender, EventArgs e)
         {
-            board.Player1 = EPlayerType.Player;
+            ChooseFirstPlayerAsHumanEvent?.Invoke(sender, e);
         }
 
         private void Player1_Is_Bot_Click(object sender, EventArgs e)
         {
-            board.Player1 = EPlayerType.Bot;
+            ChooseFirstPlayerAsBotEvent?.Invoke(sender, e);
         }
 
         private void Player2_Is_Bot_Click(object sender, EventArgs e)
         {
-            board.Player2 = EPlayerType.Bot;
+            ChooseSecondPlayerAsBotEvent?.Invoke(sender, e);
         }
 
         private void Player2_Is_Human_Click(object sender, EventArgs e)
         {
-            board.Player2 = EPlayerType.Player;
+            ChooseSecondPlayerAsHumanEvent?.Invoke(sender, e);
         }
 
         private void StartGame(object sender, EventArgs e)
         {
-            board.InitializeBoard();  
-            label1.Text = "Player1 - " + board.Player1.ToString();
-            label2.Text = "Player2 - " + board.Player2.ToString();
+            _board.InitializeBoard();
+            label1.Text = "Player1 - " + _board.Player1.ToString();
+            label2.Text = "Player2 - " + _board.Player2.ToString();
 
-            if (board.Player1 == EPlayerType.Bot)
+            if (_board.Player1 == EPlayerType.Bot)
             {
-                int row = random.Next(0, 3);
-                int col = random.Next(0, 3);
-                board.LogicH(board.Player1, row, col);
+                button11.Text = "X";
+                button11.BackColor = Color.Green;
+                button11.Enabled = false;
+                _board.CountOfAddCells++;
 
-                boardButtons[row, col].Text = "X";
-                board.cells[row, col] = '1';
-                boardButtons[row, col].BackColor = Color.Green;
-                boardButtons[row, col].Enabled = false;
-                board.countOfAddCells++;
-
-                board.Turn = false;
+                _board.Turn = false;
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Player_Click(object sender, EventArgs e)
+        {
+
+            CheckCellEvent?.Invoke(sender, e);
         }
     }
 }

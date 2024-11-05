@@ -72,6 +72,15 @@ namespace Tic_Tac_Toe
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.button00 = new System.Windows.Forms.Button();
+            this.button01 = new System.Windows.Forms.Button();
+            this.button02 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button20 = new System.Windows.Forms.Button();
+            this.button21 = new System.Windows.Forms.Button();
+            this.button22 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,7 +95,7 @@ namespace Tic_Tac_Toe
             this.hintToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(859, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(859, 30);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -97,7 +106,7 @@ namespace Tic_Tac_Toe
             this.player2ToolStripMenuItem,
             this.startGameToolStripMenuItem});
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
-            this.menuToolStripMenuItem.Size = new System.Drawing.Size(60, 24);
+            this.menuToolStripMenuItem.Size = new System.Drawing.Size(60, 26);
             this.menuToolStripMenuItem.Text = "Menu";
             // 
             // player1ToolStripMenuItem
@@ -106,20 +115,20 @@ namespace Tic_Tac_Toe
             this.pCToolStripMenuItem,
             this.humanToolStripMenuItem});
             this.player1ToolStripMenuItem.Name = "player1ToolStripMenuItem";
-            this.player1ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.player1ToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
             this.player1ToolStripMenuItem.Text = "Player1";
             // 
             // pCToolStripMenuItem
             // 
             this.pCToolStripMenuItem.Name = "pCToolStripMenuItem";
-            this.pCToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.pCToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
             this.pCToolStripMenuItem.Text = "PC";
             this.pCToolStripMenuItem.Click += new System.EventHandler(this.Player1_Is_Bot_Click);
             // 
             // humanToolStripMenuItem
             // 
             this.humanToolStripMenuItem.Name = "humanToolStripMenuItem";
-            this.humanToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.humanToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
             this.humanToolStripMenuItem.Text = "Human";
             this.humanToolStripMenuItem.Click += new System.EventHandler(this.Player1_Is_Human_Click);
             // 
@@ -129,13 +138,13 @@ namespace Tic_Tac_Toe
             this.humanToolStripMenuItem1,
             this.botToolStripMenuItem});
             this.player2ToolStripMenuItem.Name = "player2ToolStripMenuItem";
-            this.player2ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.player2ToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
             this.player2ToolStripMenuItem.Text = "Player 2";
             // 
             // humanToolStripMenuItem1
             // 
             this.humanToolStripMenuItem1.Name = "humanToolStripMenuItem1";
-            this.humanToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.humanToolStripMenuItem1.Size = new System.Drawing.Size(140, 26);
             this.humanToolStripMenuItem1.Text = "Human";
             this.humanToolStripMenuItem1.Click += new System.EventHandler(this.Player2_Is_Human_Click);
             // 
@@ -146,7 +155,7 @@ namespace Tic_Tac_Toe
             this.mediumToolStripMenuItem,
             this.hardToolStripMenuItem});
             this.botToolStripMenuItem.Name = "botToolStripMenuItem";
-            this.botToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.botToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
             this.botToolStripMenuItem.Text = "Bot";
             this.botToolStripMenuItem.Click += new System.EventHandler(this.Player2_Is_Bot_Click);
             // 
@@ -171,7 +180,7 @@ namespace Tic_Tac_Toe
             // startGameToolStripMenuItem
             // 
             this.startGameToolStripMenuItem.Name = "startGameToolStripMenuItem";
-            this.startGameToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.startGameToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
             this.startGameToolStripMenuItem.Text = "Start game";
             this.startGameToolStripMenuItem.Click += new System.EventHandler(this.StartGame);
             // 
@@ -186,7 +195,7 @@ namespace Tic_Tac_Toe
             this.gameModToolStripMenuItem,
             this.statisticsToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 26);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // backgroundToolStripMenuItem
@@ -347,19 +356,19 @@ namespace Tic_Tac_Toe
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(64, 26);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // versionToolStripMenuItem
             // 
             this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
-            this.versionToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(71, 26);
             this.versionToolStripMenuItem.Text = "Version";
             // 
             // hintToolStripMenuItem
             // 
             this.hintToolStripMenuItem.Name = "hintToolStripMenuItem";
-            this.hintToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.hintToolStripMenuItem.Size = new System.Drawing.Size(51, 26);
             this.hintToolStripMenuItem.Text = "Hint";
             // 
             // statusStrip1
@@ -387,12 +396,102 @@ namespace Tic_Tac_Toe
             this.label2.Size = new System.Drawing.Size(0, 16);
             this.label2.TabIndex = 15;
             // 
+            // button00
+            // 
+            this.button00.Location = new System.Drawing.Point(236, 119);
+            this.button00.Name = "button00";
+            this.button00.Size = new System.Drawing.Size(90, 90);
+            this.button00.TabIndex = 16;
+            this.button00.UseVisualStyleBackColor = true;
+            this.button00.Click += new System.EventHandler(this.Player_Click);
+            // 
+            // button01
+            // 
+            this.button01.Location = new System.Drawing.Point(327, 119);
+            this.button01.Name = "button01";
+            this.button01.Size = new System.Drawing.Size(90, 90);
+            this.button01.TabIndex = 17;
+            this.button01.UseVisualStyleBackColor = true;
+            this.button01.Click += new System.EventHandler(this.Player_Click);
+            // 
+            // button02
+            // 
+            this.button02.Location = new System.Drawing.Point(418, 119);
+            this.button02.Name = "button02";
+            this.button02.Size = new System.Drawing.Size(90, 90);
+            this.button02.TabIndex = 18;
+            this.button02.UseVisualStyleBackColor = true;
+            this.button02.Click += new System.EventHandler(this.Player_Click);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(236, 210);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(90, 90);
+            this.button10.TabIndex = 19;
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.Player_Click);
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(327, 210);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(90, 90);
+            this.button11.TabIndex = 20;
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.Player_Click);
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(418, 210);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(90, 90);
+            this.button12.TabIndex = 21;
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.Player_Click);
+            // 
+            // button20
+            // 
+            this.button20.Location = new System.Drawing.Point(236, 301);
+            this.button20.Name = "button20";
+            this.button20.Size = new System.Drawing.Size(90, 90);
+            this.button20.TabIndex = 22;
+            this.button20.UseVisualStyleBackColor = true;
+            this.button20.Click += new System.EventHandler(this.Player_Click);
+            // 
+            // button21
+            // 
+            this.button21.Location = new System.Drawing.Point(327, 301);
+            this.button21.Name = "button21";
+            this.button21.Size = new System.Drawing.Size(90, 90);
+            this.button21.TabIndex = 23;
+            this.button21.UseVisualStyleBackColor = true;
+            this.button21.Click += new System.EventHandler(this.Player_Click);
+            // 
+            // button22
+            // 
+            this.button22.Location = new System.Drawing.Point(418, 301);
+            this.button22.Name = "button22";
+            this.button22.Size = new System.Drawing.Size(90, 90);
+            this.button22.TabIndex = 24;
+            this.button22.UseVisualStyleBackColor = true;
+            this.button22.Click += new System.EventHandler(this.Player_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MediumBlue;
             this.ClientSize = new System.Drawing.Size(859, 548);
+            this.Controls.Add(this.button22);
+            this.Controls.Add(this.button21);
+            this.Controls.Add(this.button20);
+            this.Controls.Add(this.button12);
+            this.Controls.Add(this.button11);
+            this.Controls.Add(this.button10);
+            this.Controls.Add(this.button02);
+            this.Controls.Add(this.button01);
+            this.Controls.Add(this.button00);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.statusStrip1);
@@ -400,6 +499,7 @@ namespace Tic_Tac_Toe
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Tic Tac Toe";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -450,6 +550,15 @@ namespace Tic_Tac_Toe
         private ToolStripMenuItem offToolStripMenuItem;
         private Label label1;
         private Label label2;
+        private Button button00;
+        private Button button01;
+        private Button button02;
+        private Button button10;
+        private Button button11;
+        private Button button12;
+        private Button button20;
+        private Button button21;
+        private Button button22;
     }
 }
 

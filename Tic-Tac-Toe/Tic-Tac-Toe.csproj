@@ -61,7 +61,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
-    <Compile Include="TTTBoard.cs" />
+    <Compile Include="Model\TTTBoard.cs" />
+    <Compile Include="Presenter\TTTBoardPresenter.cs" />
+    <Compile Include="View\ITTTBoardView.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
