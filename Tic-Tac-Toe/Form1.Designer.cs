@@ -81,6 +81,7 @@ namespace Tic_Tac_Toe
             this.button20 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
             this.button22 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -477,12 +478,25 @@ namespace Tic_Tac_Toe
             this.button22.UseVisualStyleBackColor = true;
             this.button22.Click += new System.EventHandler(this.Player_Click);
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Red;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(327, 441);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(90, 49);
+            this.button1.TabIndex = 25;
+            this.button1.Text = "Restart Game";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.RestartGame_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MediumBlue;
             this.ClientSize = new System.Drawing.Size(859, 548);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.button22);
             this.Controls.Add(this.button21);
             this.Controls.Add(this.button20);
@@ -499,7 +513,6 @@ namespace Tic_Tac_Toe
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Tic Tac Toe";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -559,6 +572,7 @@ namespace Tic_Tac_Toe
         private Button button20;
         private Button button21;
         private Button button22;
+        private Button button1;
     }
 }
 

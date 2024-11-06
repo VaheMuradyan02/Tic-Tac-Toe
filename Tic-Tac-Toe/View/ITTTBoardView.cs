@@ -13,6 +13,8 @@ namespace Tic_Tac_Toe.View
         event EventHandler ChooseFirstPlayerAsBotEvent;
         event EventHandler ChooseSecondPlayerAsHumanEvent;
         event EventHandler ChooseSecondPlayerAsBotEvent;
+        event EventHandler ChooseStartGameEvent;
+        event EventHandler ChooseRestartGameEvent;
         void Show();
     }
 }

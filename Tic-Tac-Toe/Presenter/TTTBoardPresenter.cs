@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,40 @@ namespace Tic_Tac_Toe.Presenter
             _view.ChooseFirstPlayerAsBotEvent += OnChooseFirstPlayerAsBot;
             _view.ChooseSecondPlayerAsHumanEvent += OnChooseSecondPlayerAsHuman;
             _view.ChooseSecondPlayerAsBotEvent += OnChooseSecondPlayerAsBot;
+            _view.ChooseStartGameEvent += OnChooseStartGame;
+            _view.ChooseRestartGameEvent += OnChooseRestartGame;
+        }
+
+        private void OnChooseRestartGame(object sender, EventArgs e)
+        {
+            _board.ResetBoard();
+
+            for (int i = 0; i < Buttons.GetLength(0); i++)
+            {
+                for (int j = 0; j < Buttons.GetLength(1); j++)
+                {
+                    Buttons[i, j].Text = " ";
+                }
+            }
+        }
+
+        private void OnChooseStartGame(object sender, EventArgs e)
+        {
+            _board.InitializeBoard();
+
+            if (_board.Player1 == EPlayerType.Bot)
+            {
+                int row = random.Next(0, 3);
+                int col = random.Next(0, 3);
+                var button = Buttons[row, col];
+
+                _board.Cells[row, col] = '1';
+                button.Text = "X";
+                button.BackColor = Color.Green;
+                button.Enabled = false;
+                _board.Turn = false;
+                _board.CountOfAddCells++;
+            }
         }
 
         private void OnChooseSecondPlayerAsBot(object sender, EventArgs e)

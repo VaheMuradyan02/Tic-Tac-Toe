@@ -24,11 +24,13 @@ namespace Tic_Tac_Toe
         public event EventHandler ChooseFirstPlayerAsBotEvent;
         public event EventHandler ChooseSecondPlayerAsHumanEvent;
         public event EventHandler ChooseSecondPlayerAsBotEvent;
+        public event EventHandler ChooseStartGameEvent;
+        public event EventHandler ChooseRestartGameEvent;
 
-        
         public Form1()
         {
             InitializeComponent();
+            ChooseRestartGameEvent?.Invoke(this, EventArgs.Empty);
 
             var buttons = new Button[3, 3];
             for (int i = 0; i < 3; i++)
@@ -73,50 +75,50 @@ namespace Tic_Tac_Toe
 
         private void Player1_Is_Human_Click(object sender, EventArgs e)
         {
+            _board.Player1 = EPlayerType.Player;
+
             ChooseFirstPlayerAsHumanEvent?.Invoke(sender, e);
         }
 
         private void Player1_Is_Bot_Click(object sender, EventArgs e)
         {
+            _board.Player1 = EPlayerType.Bot;
+
             ChooseFirstPlayerAsBotEvent?.Invoke(sender, e);
         }
 
         private void Player2_Is_Bot_Click(object sender, EventArgs e)
         {
+            _board.Player2 = EPlayerType.Bot;
+
             ChooseSecondPlayerAsBotEvent?.Invoke(sender, e);
         }
 
         private void Player2_Is_Human_Click(object sender, EventArgs e)
         {
+            _board.Player2 = EPlayerType.Player;
+
             ChooseSecondPlayerAsHumanEvent?.Invoke(sender, e);
         }
 
         private void StartGame(object sender, EventArgs e)
         {
-            _board.InitializeBoard();
+            ChooseRestartGameEvent?.Invoke(sender, e);
+
             label1.Text = "Player1 - " + _board.Player1.ToString();
             label2.Text = "Player2 - " + _board.Player2.ToString();
 
-            if (_board.Player1 == EPlayerType.Bot)
-            {
-                button11.Text = "X";
-                button11.BackColor = Color.Green;
-                button11.Enabled = false;
-                _board.CountOfAddCells++;
-
-                _board.Turn = false;
-            }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
+            ChooseStartGameEvent?.Invoke(sender, e);
         }
 
         private void Player_Click(object sender, EventArgs e)
         {
-
             CheckCellEvent?.Invoke(sender, e);
+        }
+
+        private void RestartGame_Click(object sender, EventArgs e)
+        {
+            ChooseRestartGameEvent?.Invoke(sender, e);
         }
     }
 }
