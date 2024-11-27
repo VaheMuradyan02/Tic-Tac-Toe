@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tic-Tac-Toe", "Tic-Tac-Toe\Tic-Tac-Toe.csproj", "{55342629-A839-4F42-9030-AC32623B74A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToeWPF", "TicTacToeWPF\TicTacToeWPF.csproj", "{7BE73561-94B7-41E1-B73C-0F4BB9418BC3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{55342629-A839-4F42-9030-AC32623B74A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55342629-A839-4F42-9030-AC32623B74A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55342629-A839-4F42-9030-AC32623B74A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BE73561-94B7-41E1-B73C-0F4BB9418BC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BE73561-94B7-41E1-B73C-0F4BB9418BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BE73561-94B7-41E1-B73C-0F4BB9418BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BE73561-94B7-41E1-B73C-0F4BB9418BC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

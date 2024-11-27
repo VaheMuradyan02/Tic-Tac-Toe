@@ -1,0 +1,114 @@
+﻿<Window x:Class="TicTacToeWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TicTacToeWPF"
+        mc:Ignorable="d"
+        Title="Tic Tac Toe" Height="470" Width="450" ResizeMode="NoResize">
+    <Window.Resources>
+        <RoutedUICommand x:Key="OpenMenu" Text="Menu">
+            <RoutedUICommand.InputGestures>
+                <KeyGesture>CTRL+M</KeyGesture>
+            </RoutedUICommand.InputGestures>
+        </RoutedUICommand>
+
+        <RoutedUICommand x:Key="OpenOptions" Text="Options">
+            <RoutedUICommand.InputGestures>
+                <KeyGesture>CTRL+O</KeyGesture>
+            </RoutedUICommand.InputGestures>
+        </RoutedUICommand>
+
+        <RoutedUICommand x:Key="HintMe" Text="Hint">
+            <RoutedUICommand.InputGestures>
+                <KeyGesture>CTRL+H</KeyGesture>
+            </RoutedUICommand.InputGestures>
+        </RoutedUICommand>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource OpenMenu}" Executed="OpenMenu"/>
+        <CommandBinding Command="{StaticResource OpenOptions}" Executed="OpenOptions"/>
+        <CommandBinding Command="{StaticResource HintMe}" Executed="HintMe"/>
+    </Window.CommandBindings>
+
+    <Grid Name="MainGrid" Background="#FF6B6BAF">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*"></ColumnDefinition>
+            <ColumnDefinition Width="100*"></ColumnDefinition>
+            <ColumnDefinition Width="30*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"></RowDefinition>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="30*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Menu x:Name="MenuColumn" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalContentAlignment="Stretch" IsMainMenu="True" Background="Coral" Margin="0,0,0,50">
+            <MenuItem Name="Menu" InputGestureText="Ctrl+M" Command="{StaticResource OpenMenu}" Click="OpenMenu">
+                <MenuItem Header="Start Game" InputGestureText="Ctrl+Enter" Click="StartGame_Click">
+
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Name="Options" InputGestureText="Ctrl+O" Command="{StaticResource OpenOptions}" Click="OpenOptions">
+                <MenuItem Header="Player1">
+                    <MenuItem Name="Human" Header="Human" Click="IsPlayer1Human_Click" Checked="CheckBox_CheckedForPlayer1"></MenuItem>
+                    <MenuItem Header="Bot">
+                        <MenuItem Name="Easy" Header="Easy" Click="IsPlayer1BotEasy_Click" Checked="CheckBox_CheckedForPlayer1"></MenuItem>
+                        <MenuItem Name="Medium" Header="Medium" Click="IsPlayer1BotMedium_Click" Checked="CheckBox_CheckedForPlayer1"></MenuItem>
+                        <MenuItem Name="Hard" Header="Hard" Click="IsPlayer1BotHard_Click" Checked="CheckBox_CheckedForPlayer1"></MenuItem>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Player2" Click="HintMe">
+                    <MenuItem Header="Human" Click="IsPlayer2Human_Click"></MenuItem>
+                    <MenuItem Header="Bot">
+                        <MenuItem Header="Easy" Click="IsPlayer2BotEasy_Click"></MenuItem>
+                        <MenuItem Header="Medium" Click="IsPlayer2BotMedium_Click"></MenuItem>
+                        <MenuItem Header="Hard" Click="IsPlayer2BotHard_Click"></MenuItem>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Player1BoardImage" Click="CheckImageForPlayer1Board">
+
+                </MenuItem>
+                <MenuItem Header="Player2BoardImage" Click="CheckImageForPlayer2Board">
+
+                </MenuItem>
+            </MenuItem>
+            <MenuItem InputGestureText="Ctrl+H" Command="{StaticResource HintMe}" Click="HintMe" Width="Auto">
+                <MenuItem.Icon>
+                    <Image Source="pack://application:,,,/TicTacToeWPF;component/Resources/Hint.png"></Image>
+                </MenuItem.Icon>
+            </MenuItem>
+
+        </Menu>
+
+        <Image Grid.Row="1" Grid.Column="0" Width="64px" VerticalAlignment="Center" Source="pack://application:,,,/TicTacToeWPF;component/Resources/Hint.png"></Image>
+        <Label Grid.Row="1" Grid.Column="0" Content="Vahe"></Label>
+
+        <Image Grid.Row="1" Grid.Column="2" Width="64px" VerticalAlignment="Stretch" Source="pack://application:,,,/TicTacToeWPF;component/Resources/Hint.png"></Image>
+        <Label Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" Content="Vahe"></Label>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Image Name="Cage00" Width="Auto" Height="Auto" MouseLeftButtonDown="Cell_Click" Grid.Row="0" Grid.Column="0" Source="Default.png"  Cursor="Hand"/>
+            <Image Name="Cage01" Width="Auto" Height="Auto" MouseLeftButtonDown="Cell_Click" Grid.Row="0" Grid.Column="1" Source="Default.png" Cursor="Hand"/>
+            <Image Name="Cage02" Width="Auto" Height="Auto" MouseLeftButtonDown="Cell_Click" Grid.Row="0" Grid.Column="2" Source="Default.png" Cursor="Hand"/>
+            <Image Name="Cage10" Width="Auto" Height="Auto" MouseLeftButtonDown="Cell_Click" Grid.Row="1" Grid.Column="0" Source="Default.png" Cursor="Hand"/>
+            <Image Name="Cage11" Width="Auto" Height="Auto" MouseLeftButtonDown="Cell_Click" Grid.Row="1" Grid.Column="1" Source="Default.png" Cursor="Hand"/>
+            <Image Name="Cage12" Width="Auto" Height="Auto" MouseLeftButtonDown="Cell_Click" Grid.Row="1" Grid.Column="2" Source="Default.png" Cursor="Hand"/>
+            <Image Name="Cage20" Width="Auto" Height="Auto" MouseLeftButtonDown="Cell_Click" Grid.Row="2" Grid.Column="0" Source="Default.png" Cursor="Hand"/>
+            <Image Name="Cage21" Width="Auto" Height="Auto" MouseLeftButtonDown="Cell_Click" Grid.Row="2" Grid.Column="1" Source="Default.png" Cursor="Hand"/>
+            <Image Name="Cage22" Width="Auto" Height="Auto" MouseLeftButtonDown="Cell_Click" Grid.Row="2" Grid.Column="2" Source="Default.png" Cursor="Hand"/>
+        </Grid>        
+    </Grid>
+</Window>

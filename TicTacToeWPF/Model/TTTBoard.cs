@@ -1,41 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using static Tic_Tac_Toe.Form1;
 
-namespace Tic_Tac_Toe.Model
+namespace TicTacToeWPF.Model
 {
     public class TTTBoard
     {
         public char[,] Cells { get; set; }
         public bool Turn { get; set; } = true;
-        public int CountOfAddCells { get; set; } = 0;
-        public EPlayerType Player1 { get; set; }
-        public EPlayerType Player2 { get; set; } = EPlayerType.Bot;
-        public BotDifficulty Difficulty { get; set; }
-
+        public int CountOfCells { get; set; } = 0;
 
         public TTTBoard()
         {
-            InitializeBoard();
+            Initialize();
         }
 
-        public void InitializeBoard()
+        public void Initialize()
         {
             Cells = new char[3, 3];
-            for (int i = 0; i < Cells.GetLength(0); i++)
+
+            for (int i = 0; i < 3; i++)
             {
-                for(int j = 0; j < Cells.GetLength(1); j++)
+                for (int j = 0; j < 3; j++)
                 {
                     Cells[i, j] = ' ';
                 }
             }
-
-            //ResetBoard();
         }
 
         public bool CheckBoard()
@@ -47,8 +39,8 @@ namespace Tic_Tac_Toe.Model
                 || (Cells[0, 1] == '1' && Cells[1, 1] == '1' && Cells[2, 1] == '1')
                 || (Cells[0, 2] == '1' && Cells[1, 2] == '1' && Cells[2, 2] == '1')
                 || (Cells[0, 0] == '1' && Cells[1, 1] == '1' && Cells[2, 2] == '1')
-                || (Cells[0, 2] == '1' && Cells[1, 1] == '1' && Cells[2, 0] == '1')) 
-            {                
+                || (Cells[0, 2] == '1' && Cells[1, 1] == '1' && Cells[2, 0] == '1'))
+            {
                 return true;
             }
 
@@ -65,17 +57,6 @@ namespace Tic_Tac_Toe.Model
             }
 
             return false;
-        }
-
-        public void ResetBoard()
-        {
-            for (int i = 0; i < Cells.GetLength(0); i++)
-            {
-                for (int j = 0; j < Cells.GetLength(1); j++)
-                {
-                    Cells[i, j] = ' ';
-                }
-            }
         }
     }
 }

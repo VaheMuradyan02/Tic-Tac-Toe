@@ -1,53 +1,29 @@
 ﻿using System;
-using Tic_Tac_Toe.Model;
-using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TicTacToeWPF.Model;
 
-namespace Tic_Tac_Toe
+namespace TicTacToeWPF.BotDifficulty
 {
-    public enum BotDifficulty
+    public static class HardBot
     {
-        Easy,
-        Medium,
-        Hard
-    }
+        private static int _row;
+        private static int _col;
 
-    public class Difficulty
-    {
-
-        private readonly Random _random = new Random();
-        private int _row;
-        private int _col;
-
-        public int[] MakeMoveMedium(TTTBoard board, string symbol)
+        public static (int row, int col) MakeMove(TTTBoard board, string symbol)
         {
-            int[] rowAndCol = new int[2];
+            int row;
+            int col;
 
             if (TryToWinOrBlock(board, symbol == "X" ? '1' : '0')
                 || TryToWinOrBlock(board, symbol == "X" ? '0' : '1'))
             {
-                rowAndCol[0] = _row;
-                rowAndCol[1] = _col;
+                row = _row;
+                col = _col;
 
-                return rowAndCol;
-            }
-
-            rowAndCol[0] = _random.Next(0, 3);
-            rowAndCol[1] = _random.Next(0, 3);
-
-            return rowAndCol;
-        }
-
-        public int[] MakeMoveHard(TTTBoard board, string symbol)
-        {
-            int[] rowAndCol = new int[2];
-
-            if (TryToWinOrBlock(board, symbol == "X" ? '1' : '0')
-                || TryToWinOrBlock(board, symbol == "X" ? '0' : '1'))
-            {
-                rowAndCol[0] = _row;
-                rowAndCol[1] = _col;
-
-                return rowAndCol;
+                return (row,col);
             }
 
             int bestScore = int.MinValue;
@@ -75,24 +51,25 @@ namespace Tic_Tac_Toe
                 }
             }
 
-            rowAndCol[0] = bestRow;
-            rowAndCol[1] = bestCol;
-            return rowAndCol;
+            row = bestRow;
+            col = bestCol;
+
+            return (row, col);
 
         }
 
-        private bool TryToWinOrBlock(TTTBoard board, char symbol)
+        private static bool TryToWinOrBlock(TTTBoard board, char symbol)
         {
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    if (board.Cells[i, j] != '1' && board.Cells[i, j] != '0') 
+                    if (board.Cells[i, j] != '1' && board.Cells[i, j] != '0')
                     {
                         board.Cells[i, j] = symbol;
                         if (board.CheckBoard())
                         {
-                            board.Cells[i, j] = ' '; 
+                            board.Cells[i, j] = ' ';
 
                             _row = i;
                             _col = j;
@@ -105,7 +82,7 @@ namespace Tic_Tac_Toe
             return false;
         }
 
-        private int Minimax(TTTBoard board, int depth, bool isMaximizing, int alpha, int beta, char symbolBot)
+        private static int Minimax(TTTBoard board, int depth, bool isMaximizing, int alpha, int beta, char symbolBot)
         {
             if (board.CheckBoard())
                 return isMaximizing ? -10 + depth : 10 - depth;
@@ -144,7 +121,7 @@ namespace Tic_Tac_Toe
             return bestScore;
         }
 
-        private bool IsBoardFull(TTTBoard board)
+        private static bool IsBoardFull(TTTBoard board)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -156,4 +133,5 @@ namespace Tic_Tac_Toe
             return true;
         }
     }
+
 }

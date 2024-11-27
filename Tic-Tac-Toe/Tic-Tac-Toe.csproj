@@ -63,6 +63,24 @@
     </Compile>
     <Compile Include="Model\TTTBoard.cs" />
     <Compile Include="Presenter\TTTBoardPresenter.cs" />
+    <Compile Include="View\FormForBackColor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FormForBackColor.Designer.cs">
+      <DependentUpon>FormForBackColor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\FormForChangeNameOfPlayer1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FormForChangeNameOfPlayer1.Designer.cs">
+      <DependentUpon>FormForChangeNameOfPlayer1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\FormForChangeNameOfPlayer2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FormForChangeNameOfPlayer2.Designer.cs">
+      <DependentUpon>FormForChangeNameOfPlayer2.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ITTTBoardView.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -75,10 +93,20 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FormForBackColor.resx">
+      <DependentUpon>FormForBackColor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FormForChangeNameOfPlayer1.resx">
+      <DependentUpon>FormForChangeNameOfPlayer1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FormForChangeNameOfPlayer2.resx">
+      <DependentUpon>FormForChangeNameOfPlayer2.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -95,6 +123,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon1.ico" />
+    <None Include="Resources\image_0210.jpg" />
+    <None Include="Resources\image_1228.jpg" />
+    <None Include="Resources\Player2_Image.png" />
+    <None Include="Resources\Player1_Image.png" />
+    <None Include="Resources\Player1_Image.bmp" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

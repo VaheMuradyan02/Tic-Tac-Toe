@@ -12,12 +12,17 @@ using System.IO;
 using Tic_Tac_Toe.Model;
 using Tic_Tac_Toe.View;
 using Tic_Tac_Toe.Presenter;
+using System.Security.Policy;
+using System.Reflection;
 
 namespace Tic_Tac_Toe
 {
     public partial class Form1 : Form, ITTTBoardView
     {
         private TTTBoard _board = new TTTBoard();
+        private FormForChangeNameOfPlayer1 _changePlayer1Name = new FormForChangeNameOfPlayer1();
+        private FormForChangeNameOfPlayer2 _changePlayer2Name = new FormForChangeNameOfPlayer2();
+        private FormForBackColor _checkedBox = new FormForBackColor();
 
         public event EventHandler CheckCellEvent;
         public event EventHandler ChooseFirstPlayerAsHumanEvent;
@@ -26,6 +31,9 @@ namespace Tic_Tac_Toe
         public event EventHandler ChooseSecondPlayerAsBotEvent;
         public event EventHandler ChooseStartGameEvent;
         public event EventHandler ChooseRestartGameEvent;
+        public event EventHandler ChooseBotEasyEvent;
+        public event EventHandler ChooseBotMediumEvent;
+        public event EventHandler ChooseBotHardEvent;
 
         public Form1()
         {
@@ -44,33 +52,16 @@ namespace Tic_Tac_Toe
             }
 
             _board.InitializeBoard();
-            CreateBoard();
+            AploadImage();
             _ = new TTTBoardPresenter(this, buttons);
+
+            menuToolStripMenuItem.Click += new EventHandler(menuToolStripMenuItem_Click);
         }
 
-        private void CreateBoard()
+        private void AploadImage()
         {
-            PictureBox pb1 = new PictureBox();
-            pb1.Image = Image.FromFile("C:\\Users\\user\\OneDrive\\Pictures\\Desktop Backgrounds\\Image 24.jpg");
-            pb1.Location = new Point(120, 50);
-            pb1.Size = new Size(30, 30);
-            this.Controls.Add(pb1);
-
-            Label l1 = new Label();
-            l1.Text = "Player1";
-            l1.Location = new Point(150, 50);
-            this.Controls.Add(l1);
-
-            PictureBox pb2 = new PictureBox();
-            pb2.Image = Image.FromFile("C:\\Users\\user\\OneDrive\\Pictures\\Desktop Backgrounds\\Image 24.jpg");
-            pb2.Location = new Point(450, 50);
-            pb2.Size = new Size(30, 30);
-            this.Controls.Add(pb2);
-
-            Label l2 = new Label();
-            l2.Text = "Player2";
-            l2.Location = new Point(410, 50);
-            this.Controls.Add(l2);
+            pictureBox1.Image = Properties.Resources.Player1_Image1;
+            pictureBox2.Image = Properties.Resources.Player2_Image1;
         }
 
         private void Player1_Is_Human_Click(object sender, EventArgs e)
@@ -84,6 +75,9 @@ namespace Tic_Tac_Toe
         {
             _board.Player1 = EPlayerType.Bot;
 
+            if (botToolStripMenuItem.Enabled)
+                botToolStripMenuItem.DropDown.Show(menuStrip1, new Point(0, 0));
+
             ChooseFirstPlayerAsBotEvent?.Invoke(sender, e);
         }
 
@@ -91,7 +85,31 @@ namespace Tic_Tac_Toe
         {
             _board.Player2 = EPlayerType.Bot;
 
+            if (botToolStripMenuItem.Enabled)
+                botToolStripMenuItem.DropDown.Show(menuStrip1, new Point(0, 0));
+
             ChooseSecondPlayerAsBotEvent?.Invoke(sender, e);
+        }
+
+        private void Player2_Is_BotEasy_Click(object sender, EventArgs e)
+        {
+            _board.Difficulty = BotDifficulty.Easy;
+
+            ChooseBotEasyEvent?.Invoke(sender, e);
+        }
+
+        private void Player2_Is_BotMedium_Click(object sender, EventArgs e)
+        {
+            _board.Difficulty = BotDifficulty.Medium;
+
+            ChooseBotMediumEvent?.Invoke(sender, e);
+        }
+
+        private void Player2_Is_BotHard_Click(object sender, EventArgs e)
+        {
+            _board.Difficulty = BotDifficulty.Hard;
+
+            ChooseBotHardEvent?.Invoke(sender, e);
         }
 
         private void Player2_Is_Human_Click(object sender, EventArgs e)
@@ -111,6 +129,11 @@ namespace Tic_Tac_Toe
             ChooseStartGameEvent?.Invoke(sender, e);
         }
 
+        public void UpdateStatus(string status)
+        {
+            StatusGame.Text = status;
+        }
+
         private void Player_Click(object sender, EventArgs e)
         {
             CheckCellEvent?.Invoke(sender, e);
@@ -118,7 +141,40 @@ namespace Tic_Tac_Toe
 
         private void RestartGame_Click(object sender, EventArgs e)
         {
+
             ChooseRestartGameEvent?.Invoke(sender, e);
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void colorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //FormForBackColor dialog = new FormForBackColor();
+            _checkedBox.Owner = this;
+            //_CheckedBox.Parent = this;
+            _checkedBox.ShowDialog();
+        }
+        private void ChangeNameOfPlayer1_Click(object sender, EventArgs e)
+        {
+            _changePlayer1Name.ShowDialog();
+        }
+
+        private void ChangeNameOfPlayer2_Click(object sender, EventArgs e)
+        {
+            _changePlayer2Name.ShowDialog();
+        }
+
+        private void menuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }
