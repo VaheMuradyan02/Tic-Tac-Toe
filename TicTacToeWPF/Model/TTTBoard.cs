@@ -11,6 +11,8 @@ namespace TicTacToeWPF.Model
         public char[,] Cells { get; set; }
         public bool Turn { get; set; } = true;
         public int CountOfCells { get; set; } = 0;
+        public string Player1Type { get; set; } = "Human";
+        public string Player2Type { get; set; } = "BotEasy";
 
         public TTTBoard()
         {
@@ -57,6 +59,19 @@ namespace TicTacToeWPF.Model
             }
 
             return false;
+        }
+
+        public void Reset_Board()
+        {
+            Cells = new char[3, 3];
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    Cells[i, j] = ' ';
+                }
+            }
         }
     }
 }

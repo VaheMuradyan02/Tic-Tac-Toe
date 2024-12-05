@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,29 +18,69 @@ namespace TicTacToeWPF.Presenter
     {
         private ITTTView _view;
         private TTTBoard _board;
-        private string _player1Type;
-        private string _player2Type;
+        private Image[,] _cages;
         private bool _endGame = false;
 
-        public TTTBoardPresenter(ITTTView view, string player1, string player2)
+        public TTTBoardPresenter(ITTTView view, Image[,] cages, TTTBoard board)
         {
             _view = view;
-            _board = new TTTBoard();
-            _player1Type = player1;
-            _player2Type = player2;
+            _board = board;
+            _cages = cages;
             _view.CheckCellEvent += OnCheckCell;
             _view.StartGameEvent += OnStartGame;
+            _view.RestartGameEvent += OnRestartGame;
+            _view.HintEvent += HintPlayer;
             _view.Show();
         }
 
-        private void OnStartGame(object sender, EventArgs e)
+        private async void HintPlayer(object sender, EventArgs e)
+        {
+            int row;
+            int col;
+
+            if (_board.Player1Type == "Human")
+            {
+                (row, col) = HardBot.MakeMove(_board, "X");
+            }
+            else
+            {
+                (row, col) = HardBot.MakeMove(_board, "O");
+            }
+
+            var uriHint = new Uri("pack://application:,,,/TicTacToeWPF;component/Resources/Hint.png", UriKind.Absolute);
+            _cages[row, col].Source = new BitmapImage(uriHint);
+
+            await Task.Delay(500);
+
+            var uri = new Uri("pack://application:,,,/TicTacToeWPF;component/Default.png", UriKind.Absolute);
+            _cages[row, col].Source = new BitmapImage(uri);
+        }
+
+        private void OnRestartGame(object sender, EventArgs e)
+        {
+            _board.Reset_Board();
+            _endGame = false;
+
+            for (int i = 0; i < _cages.GetLength(0); i++)
+            {
+                for (int j = 0; j < _cages.GetLength(1); j++)
+                {
+                    var uri = new Uri("pack://application:,,,/TicTacToeWPF;component/Default.png", UriKind.Absolute);
+                    _cages[i, j].Source = new BitmapImage(uri);
+                    _cages[i, j].IsEnabled = true;
+                }
+            }
+        }
+
+        private void OnStartGame(object sender, CellCheckedEventArgs e)
         {
             _board.Initialize();
+            _endGame = false;
+            _board.Turn = true;
 
-            if (_player1Type != "Human")
+            if (_board.Player1Type != "Human")
             {
-                _board.Turn = false;
-                MakeBotMove("X", _player1Type);
+                MakeBotMove("X", _board.Player1Type, e.XImage);
             }
         }
 
@@ -60,116 +101,91 @@ namespace TicTacToeWPF.Presenter
 
             if (_board.Turn)
             {
-                //_view.UpdateStatus("X is playing...");
+                PlayerMove(row, col, "X", '1', e.XImage);
 
-                //await DisableButtonsTemporarily(500);
-
-                PlayerMove(row, col, "X", '1');
-                image.Source = e.XImage;
-                //_view.UpdateStatus("X edned.");
-
-                //if (_endGame) return;
-
-                //await DisableButtonsTemporarily(500);
-
-               // _view.UpdateStatus("O is playing...");
-
-                //await DisableButtonsTemporarily(1000);
-
-                if (_player2Type != "Human")
+                if (_board.Player2Type != "Human")
                 {
-                    MakeBotMove("O", _player2Type);
+                    MakeBotMove("O", _board.Player2Type, e.OImage);
                 }
-
-                //_view.UpdateStatus("O ended.");
             }
             else
             {
-                //_view.UpdateStatus("O is playing...");
-
-                //await DisableButtonsTemporarily(500);
-
-                if (_player2Type != "Human")
+                if (_board.Player2Type != "Human")
                 {
-                    MakeBotMove("O", _player2Type);
+                    MakeBotMove("O", _board.Player2Type, e.OImage);
                 }
                 else
                 {
-                    PlayerMove(row, col, "O", '0');
+                    PlayerMove(row, col, "O", '0', e.OImage);
                 }
 
-                //_view.UpdateStatus("O ended.");
-
-                //if (_endGame) return;
-
-                //await DisableButtonsTemporarily(500);
-
-                //_view.UpdateStatus("X is playing...");
-
-                //await DisableButtonsTemporarily(500);
-
-                if (_player1Type != "Human")
+                if (_board.Player1Type != "Human")
                 {
-                    MakeBotMove("X", _player1Type);
+                    MakeBotMove("X", _board.Player1Type, e.XImage);
                 }
-
-                //_view.UpdateStatus("X ended.");
             }
         }
 
-        private void PlayerMove(int row, int col, string symbol, char cellValue)
+        private void PlayerMove(int row, int col, string symbol, char cellValue, ImageSource cageImage)
         {
-            //var button = _buttons[row, col];
-            //button.Text = symbol;
-            //button.BackColor = color;
-            //button.Enabled = false;
+            _cages[row, col].Source = cageImage;
+            _cages[row, col].IsEnabled = false;
             _board.Cells[row, col] = cellValue;
             _board.Turn = !_board.Turn;
             _board.CountOfCells++;
-            
+
 
             if (_board.CountOfCells >= 5)
             {
                 if (_board.CheckBoard())
                 {
                     MessageBox.Show($"Win  - {symbol}");
+                    SetCagesEnabled(false);
                     _endGame = true;
                 }
                 if (IsBoardFull(_board) && !_board.CheckBoard())
                 {
                     MessageBox.Show("The Game is Draw.");
+                    SetCagesEnabled(false);
                     _endGame = true;
                 }
             }
         }
 
-        private void MakeBotMove(string symbol, string player)
+        private void MakeBotMove(string symbol, string player, ImageSource cageImage)
         {
             if (_endGame) return;
 
             int row;
             int col;
 
-            while (true)
+            if (player == "BotEasy")
             {
-                if (player == "BotEasy")
-                {
-                   (row,col) = EasyBot.MakeMove(_board.Cells);
-                }
-                else if (player == "BotMedium")
-                {
-                    (row, col) = MediumBot.MakeMove(_board, symbol);
-                }
-                else
-                {
-                    (row, col) = HardBot.MakeMove(_board, symbol);
-                }
+                (row, col) = EasyBot.MakeMove(_board.Cells);
+            }
+            else if (player == "BotMedium")
+            {
+                (row, col) = MediumBot.MakeMove(_board, symbol);
+            }
+            else
+            {
+                (row, col) = HardBot.MakeMove(_board, symbol);
+            }
 
-                if (_board.Cells[row, col] != '1' && _board.Cells[row, col] != '0')
+            if (_board.Cells[row, col] != '1' && _board.Cells[row, col] != '0')
+            {
+                char cell = symbol == "X" ? '1' : '0';
+                PlayerMove(row, col, symbol, cell, cageImage);
+            }
+        }
+
+        private void SetCagesEnabled(bool enabled)
+        {
+            for (int i = 0; i < _cages.GetLength(0); i++)
+            {
+                for (int j = 0; j < _cages.GetLength(1); j++)
                 {
-                    char cell = symbol == "X" ? '1' : '0';
-                    PlayerMove(row, col, symbol, cell);
-                    break;
+                    _cages[i, j].IsEnabled = enabled;
                 }
             }
         }

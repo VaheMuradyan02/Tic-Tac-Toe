@@ -11,7 +11,9 @@ namespace TicTacToeWPF.View
     public interface ITTTView
     {
         event EventHandler<CellCheckedEventArgs> CheckCellEvent;
-        event EventHandler StartGameEvent;
+        event EventHandler<CellCheckedEventArgs> StartGameEvent;
+        event EventHandler RestartGameEvent;
+        event EventHandler HintEvent;
         void Show();
     }
 }

@@ -1,0 +1,29 @@
+﻿<Window x:Class="TicTacToeWPF.View.WPF.ChangeNameWindowPlayer1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TicTacToeWPF.View.WPF"
+        mc:Ignorable="d"
+        Title="ChangeNameWindowPlayer1" Height="420" Width="500" ResizeMode="NoResize">
+    
+    <Grid Background="Gray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*"></ColumnDefinition>
+            <ColumnDefinition Width="100*"></ColumnDefinition>
+            <ColumnDefinition Width="30*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70*"></RowDefinition>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="70*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column = "1" HorizontalAlignment="Center" FontSize="23" FontFamily="Bahnschrift">Change Player1 Name</Label>
+        <TextBox Name="TextBox" Grid.Row = "1" Grid.Column="1" Height="37" VerticalAlignment="Top" TextChanged="TextBox_Changed" FontSize="20"></TextBox>
+        <Button Name="Cancel" Content="Cancel"  Grid.Row = "1" Grid.Column="1" Height="45" Width="85" VerticalContentAlignment="Center" VerticalAlignment="Bottom" FontSize="12" FontWeight="Bold" Click="Cancel_Click"/>
+        <Button Name="Save" Content="Save" Grid.Row = "1" Grid.Column="1" Height="45" Width="85" VerticalContentAlignment="Center" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" HorizontalAlignment="Right" ForceCursor="True" FontWeight="Bold" Click="Ok_Click"/>
+
+
+    </Grid>
+</Window>

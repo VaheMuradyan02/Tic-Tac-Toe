@@ -24,6 +24,7 @@
                 <KeyGesture>CTRL+H</KeyGesture>
             </RoutedUICommand.InputGestures>
         </RoutedUICommand>
+
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="{StaticResource OpenMenu}" Executed="OpenMenu"/>
@@ -46,33 +47,31 @@
         
         <Menu x:Name="MenuColumn" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalContentAlignment="Stretch" IsMainMenu="True" Background="Coral" Margin="0,0,0,50">
             <MenuItem Name="Menu" InputGestureText="Ctrl+M" Command="{StaticResource OpenMenu}" Click="OpenMenu">
-                <MenuItem Header="Start Game" InputGestureText="Ctrl+Enter" Click="StartGame_Click">
-
-                </MenuItem>
+                <MenuItem Header="Start Game" Click="StartGame_Click"></MenuItem>
+                <MenuItem Header="Reset Board" Click="RestartGame_Click"></MenuItem>
             </MenuItem>
             <MenuItem Name="Options" InputGestureText="Ctrl+O" Command="{StaticResource OpenOptions}" Click="OpenOptions">
                 <MenuItem Header="Player1">
-                    <MenuItem Name="Human" Header="Human" Click="IsPlayer1Human_Click" Checked="CheckBox_CheckedForPlayer1"></MenuItem>
+                    <MenuItem Name="Human_1" Header="Human" Click="IsPlayer1Human_Click" IsChecked="True"></MenuItem>
                     <MenuItem Header="Bot">
-                        <MenuItem Name="Easy" Header="Easy" Click="IsPlayer1BotEasy_Click" Checked="CheckBox_CheckedForPlayer1"></MenuItem>
-                        <MenuItem Name="Medium" Header="Medium" Click="IsPlayer1BotMedium_Click" Checked="CheckBox_CheckedForPlayer1"></MenuItem>
-                        <MenuItem Name="Hard" Header="Hard" Click="IsPlayer1BotHard_Click" Checked="CheckBox_CheckedForPlayer1"></MenuItem>
+                        <MenuItem Name="Easy_1" Header="Easy" Click="IsPlayer1BotEasy_Click"></MenuItem>
+                        <MenuItem Name="Medium_1" Header="Medium" Click="IsPlayer1BotMedium_Click"></MenuItem>
+                        <MenuItem Name="Hard_1" Header="Hard" Click="IsPlayer1BotHard_Click"></MenuItem>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="Player2" Click="HintMe">
-                    <MenuItem Header="Human" Click="IsPlayer2Human_Click"></MenuItem>
+                <MenuItem Header="Player2">
+                    <MenuItem Name="Human_2" Header="Human" Click="IsPlayer2Human_Click"></MenuItem>
                     <MenuItem Header="Bot">
-                        <MenuItem Header="Easy" Click="IsPlayer2BotEasy_Click"></MenuItem>
-                        <MenuItem Header="Medium" Click="IsPlayer2BotMedium_Click"></MenuItem>
-                        <MenuItem Header="Hard" Click="IsPlayer2BotHard_Click"></MenuItem>
+                        <MenuItem Name="Easy_2" Header="Easy" Click="IsPlayer2BotEasy_Click" IsChecked="True"></MenuItem>
+                        <MenuItem Name="Medium_2" Header="Medium" Click="IsPlayer2BotMedium_Click"></MenuItem>
+                        <MenuItem Name="Hard_2" Header="Hard" Click="IsPlayer2BotHard_Click"></MenuItem>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="Player1BoardImage" Click="CheckImageForPlayer1Board">
-
-                </MenuItem>
-                <MenuItem Header="Player2BoardImage" Click="CheckImageForPlayer2Board">
-
-                </MenuItem>
+                <MenuItem Header="Player1BoardImage" Click="CheckImageForPlayer1Board"></MenuItem>
+                <MenuItem Header="Player2BoardImage" Click="CheckImageForPlayer2Board"></MenuItem>
+                <MenuItem Header="Player1Name" Click="ChangeNameForPlayer1"></MenuItem>
+                <MenuItem Header="Player2Name" Click="ChangeNameForPlayer2"></MenuItem>
+                <MenuItem Header="Statistic" Click="GetStatistic_Click" ></MenuItem>
             </MenuItem>
             <MenuItem InputGestureText="Ctrl+H" Command="{StaticResource HintMe}" Click="HintMe" Width="Auto">
                 <MenuItem.Icon>
@@ -82,11 +81,11 @@
 
         </Menu>
 
-        <Image Grid.Row="1" Grid.Column="0" Width="64px" VerticalAlignment="Center" Source="pack://application:,,,/TicTacToeWPF;component/Resources/Hint.png"></Image>
-        <Label Grid.Row="1" Grid.Column="0" Content="Vahe"></Label>
+        <Image Grid.Row="1" Grid.Column="0" Width="75px" VerticalAlignment="Center" Source="pack://application:,,,/TicTacToeWPF;component/Resources/Player1Img.jpg"></Image>
+        <Label Name="Player1" Grid.Row="1" Grid.Column="0" Content="Player1"></Label>
 
-        <Image Grid.Row="1" Grid.Column="2" Width="64px" VerticalAlignment="Stretch" Source="pack://application:,,,/TicTacToeWPF;component/Resources/Hint.png"></Image>
-        <Label Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" Content="Vahe"></Label>
+        <Image Grid.Row="1" Grid.Column="2" Width="75px" VerticalAlignment="Stretch" Source="pack://application:,,,/TicTacToeWPF;component/Resources/Player2Img.jpg"></Image>
+        <Label Name="Player2"  Grid.Row="1" Grid.Column="2" VerticalAlignment="Top" Content="Player2"></Label>
 
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -100,7 +99,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Image Name="Cage00" Width="Auto" Height="Auto" MouseLeftButtonDown="Cell_Click" Grid.Row="0" Grid.Column="0" Source="Default.png"  Cursor="Hand"/>
+            <Image Name="Cage00" Width="Auto" Height="Auto" MouseLeftButtonDown="Cell_Click" Grid.Row="0" Grid.Column="0" Source="Default.png" Cursor="Hand"/>
             <Image Name="Cage01" Width="Auto" Height="Auto" MouseLeftButtonDown="Cell_Click" Grid.Row="0" Grid.Column="1" Source="Default.png" Cursor="Hand"/>
             <Image Name="Cage02" Width="Auto" Height="Auto" MouseLeftButtonDown="Cell_Click" Grid.Row="0" Grid.Column="2" Source="Default.png" Cursor="Hand"/>
             <Image Name="Cage10" Width="Auto" Height="Auto" MouseLeftButtonDown="Cell_Click" Grid.Row="1" Grid.Column="0" Source="Default.png" Cursor="Hand"/>
